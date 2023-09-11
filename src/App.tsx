@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from 'react';
+import './styles.css';
+import MenuIcon from './assets/manoel-gomes-caneta-azul.jpeg'
+import { useOutsideClick } from './useOutsideClick';
 
 function App() {
+  const dropDownRef = useRef(null);
+  const [isActive,setIsActive] = useState(false)
+  const onClick = () => setIsActive(!isActive)
+
+  console.log(isActive)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Container">
+      <div className='menu-container'>
+        <button onClick={onClick} className='menu-button'>
+          <img src={MenuIcon} alt="menu-icon" className='menu-icon'/>
+          <span>Menu</span>
+        </button>
+
+        <nav ref={dropDownRef} className={`menu ${isActive ? 'active' : 'inactive' }`}>
+          <ul>
+            <li>
+              <a href='#'>Home</a>
+            </li>
+            <li>
+              <a href='#'>DashBoard</a>
+            </li>
+            <li>
+              <a href='#'>User</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 }
